@@ -1,5 +1,7 @@
 from Ant import Ant
 
+import numpy as np
+
 class Board:
     def __init__(self, dimension=40):
         self.dimension = dimension
@@ -18,12 +20,17 @@ class Board:
                 right += 1
                 iterator += 1
             iterator = my_list.index(element) + 1
-            while(left>0 and iterator < self.dimension):
+            while(left>=0 and iterator < self.dimension):
                 if(left == my_list[iterator]):
                     score += 1
                 left -= 1
                 iterator += 1
         return score
+    
+    def weight_update(self, my_list, weight_matrix, score):
+        for i in range(0, self.dimension - 1):
+            weight_matrix[my_list[i], my_list[i+1]] += 1/score
+
 
 # a = Ant(10)
 # a.choose_path()
