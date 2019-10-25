@@ -9,23 +9,35 @@ class Ant_colony:
 
         self.weight_matrix = np.zeros([self.dimension, self.dimension])
         self.myBoard = Board(dimension = self.dimension)
+        count = 0
         ants = [Ant(10, start_position = i, dimension=self.dimension) for i in range(0,dimension)]
-        for ant in ants:
-            ant.choose_path()
-            print(ant.visited_nodes)
-            score = self.myBoard.score(ant.visited_nodes)
-            print(score)
-        for ant in ants:
-            score = self.myBoard.score(ant.visited_nodes)
-            if score == 0:
+        while(count < 20000):
+            del(ants)
+            ants = [Ant(10, start_position = i, dimension=self.dimension) for i in range(0,dimension)]
+            score_information = []
+            for ant in ants:
+                ant.choose_path(weight_matrix=self.weight_matrix.copy())
+                print(ant.visited_nodes)
+                score = self.myBoard.score(ant.visited_nodes)
+                score_information.append(score)
+                print(score)
+            if 0 in score_information:
                 break
-            self.myBoard.weight_update(ant.visited_nodes, self.weight_matrix, score)
-        del(ants)
+            for score in score_information:
+                self.myBoard.weight_update(ant.visited_nodes, self.weight_matrix, score)
+            count += 1
 
-        print(self.weight_matrix)
+        minimo = min(score_information)
 
-        ants = [Ant(10, start_position = i, dimension=self.dimension) for i in range(0,dimension)]
-        for ant in ants:
-            ant.choose_path(weight_matrix=self.weight_matrix.copy())
-            print(ant.visited_nodes)
-        del(ants)
+        index = score_information.index(minimo)
+
+        print(ants[index].visited_nodes)
+        print(minimo)
+
+        # print(self.weight_matrix)
+
+        # ants = [Ant(10, start_position = i, dimension=self.dimension) for i in range(0,dimension)]
+        # for ant in ants:
+        #     ant.choose_path(weight_matrix=self.weight_matrix.copy())
+        #     print(ant.visited_nodes)
+        # del(ants)

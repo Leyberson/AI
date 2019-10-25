@@ -1,3 +1,3 @@
 from Ant_colony import Ant_colony
 
-Ant_colony(4)
+Ant_colony(16)

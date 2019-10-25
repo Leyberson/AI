@@ -28,6 +28,7 @@ class Board:
         return score
     
     def weight_update(self, my_list, weight_matrix, score):
+        weight_matrix *= 0.8
         for i in range(0, self.dimension - 1):
             weight_matrix[my_list[i], my_list[i+1]] += 1/score
 
