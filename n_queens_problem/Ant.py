@@ -13,7 +13,7 @@ class Ant:
             del(self.neighbors[self.neighbors.index(start_position)])
 
     
-    def choose_path(self, weight_matrix = np.zeros([2, 2]), default_weight=0.1):
+    def choose_path(self, weight_matrix = np.zeros([2, 2]), default_weight=10):
         if(weight_matrix.shape == (2,2)):
             weight_matrix=np.zeros([self.dimension, self.dimension])
         weight_matrix = weight_matrix + default_weight

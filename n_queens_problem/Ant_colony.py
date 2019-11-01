@@ -1,6 +1,7 @@
 from Ant import Ant
 from Board import Board
 
+from os import system
 import numpy as np
 
 class Ant_colony:
@@ -17,15 +18,15 @@ class Ant_colony:
             score_information = []
             for ant in ants:
                 ant.choose_path(weight_matrix=self.weight_matrix.copy())
-                print(ant.visited_nodes)
                 score = self.myBoard.score(ant.visited_nodes)
                 score_information.append(score)
-                print(score)
             if 0 in score_information:
                 break
             for score in score_information:
                 self.myBoard.weight_update(ant.visited_nodes, self.weight_matrix, score)
             count += 1
+            system("clear")
+            print(min(score_information))
 
         minimo = min(score_information)
 
